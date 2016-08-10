@@ -49,3 +49,44 @@ double Utils::get_prom_time(std::string timer){
     }
     return 0.0;
 }
+
+unsigned long Utils::getMemFree() {
+    std::string token;
+    std::ifstream file("/proc/meminfo");
+    while(file >> token) {
+        if(token == "MemFree:") {
+            unsigned long mem;
+            if(file >> mem) {
+                return mem;
+            } else {
+                return 0;
+            }
+        }
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+    return 0;
+}
+
+unsigned long Utils::getMemAvailable() {
+    std::string token;
+    std::ifstream file("/proc/meminfo");
+    while(file >> token) {
+        if(token == "MemAvailable:") {
+            unsigned long mem;
+            if(file >> mem) {
+                return mem;
+            } else {
+                return 0;
+            }
+        }
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+    return 0;
+}
+
+unsigned long Utils::getCPUFrequency() {
+    std::ifstream file("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq");
+    unsigned long mem;
+    if(file >> mem) return mem;
+    return 0;
+}

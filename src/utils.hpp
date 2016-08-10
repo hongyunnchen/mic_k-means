@@ -5,6 +5,8 @@
 #include <random>
 #include <map>
 #include <string>
+#include <fstream>
+#include <iostream>
 
 class Utils
 {
@@ -16,6 +18,9 @@ public:
     double get_last_time(std::string timer);
     double get_total_time(std::string timer);
     double get_prom_time(std::string timer);
+    unsigned long getMemFree();
+    unsigned long getMemAvailable();
+    unsigned long getCPUFrequency();
 
 private:
     void seed_random();
